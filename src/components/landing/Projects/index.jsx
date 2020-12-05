@@ -8,76 +8,73 @@ import { Wrapper, Grid, Item, Content, Stats, Languages } from './styles';
 
 export const Projects = () => {
   const { theme } = useContext(ThemeContext);
-  const {
-    github: {
-      viewer: {
-        repositories: { edges },
-      },
-    },
-  } = useStaticQuery(
-    graphql`
-      {
-        github {
-          viewer {
-            repositories(first: 8, orderBy: { field: STARGAZERS, direction: DESC }) {
-              edges {
-                node {
-                  id
-                  name
-                  url
-                  description
-                  stargazers {
-                    totalCount
-                  }
-                  forkCount
-                  languages(first: 3) {
-                    nodes {
-                      id,
-                      name
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    `
-  );
+  // const {
+  //   github: {
+  //     viewer: {
+  //       repositories: { edges },
+  //     },
+  //   },
+  // } = useStaticQuery(
+  //   graphql`
+  //     {
+  //       github {
+  //         viewer {
+  //           repositories(first: 8, orderBy: { field: STARGAZERS, direction: DESC }) {
+  //             edges {
+  //               node {
+  //                 id
+  //                 name
+  //                 url
+  //                 description
+  //                 stargazers {
+  //                   totalCount
+  //                 }
+  //                 forkCount
+  //                 languages(first: 3) {
+  //                   nodes {
+  //                     id,
+  //                     name
+  //                   }
+  //                 }
+  //               }
+  //             }
+  //           }
+  //         }
+  //       }
+  //     }
+  //   `
+  // );
+  const projects = [
+    { id: 1, name: 'Cafe Coffee', description: 'A online Coffee buy site',
+  url: 'https://cafecoffee.netlify.app/',},
+    { id: 2, name: 'Bombay trimming', description: 'Online Saloon booking and buy beauty products', url: 'https://bombaytrimming.netlify.app/' },
+    { id: 3, name: 'Ethflix', description: 'Etherium temlate', url: 'https://ethflix.io/' },
+    { id: 3, name: 'Bakery', description: 'Buy online bakery products', url: 'https://bakery-v1.netlify.app/' },
+    { id: 3, name: 'Safaa', description: 'Online buy women wear', url: 'https://safaa.netlify.app/' },
+
+  ];
   return (
     <Wrapper as={Container} id="projects">
       <h2>Projects</h2>
       <Grid>
-        {edges.map(({ node }) => (
-          <Item key={node.id} as="a" href={node.url} target="_blank" rel="noopener noreferrer" theme={theme}>
+      {projects.map(item => (
+          <Item as="a" href={item.url} target="_blank" rel="noopener noreferrer" theme={theme}>
             <Card theme={theme}>
               <Content>
-                <h4>{node.name}</h4>
-                <p>{node.description}</p>
+                <h4>{item.name}</h4>
+                <p>{item.description}</p>
               </Content>
-              <TitleWrap>
-                <Stats theme={theme}>
-                  <div>
-                    <Star color={theme === "light" ? "#000" : "#fff"} />
-                    <span>{node.stargazers.totalCount}</span>
-                  </div>
-                  <div>
-                    <Fork color={theme === "light" ? "#000" : "#fff"} />
-                    <span>{node.forkCount}</span>
-                  </div>
-                </Stats>
-                <Stats theme={theme}>
+              <Stats theme={theme}>
                   <Languages>
-                    {
-                      node.languages.nodes.map(({ id, name }) => (
-                        <span key={id}>
-                          {name}
+                    {/* {
+                      item.languages.map(({ id, name }) => (*/}
+                        <span >
+                          HTML, CSS, JAVASCRIPT, REACT
                         </span>
-                      ))
-                    }
+                      {/* ))
+                    } */}
                   </Languages>
                 </Stats>
-              </TitleWrap>
             </Card>
           </Item>
         ))}
